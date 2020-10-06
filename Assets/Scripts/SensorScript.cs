@@ -62,14 +62,14 @@ public class SensorScript : MonoBehaviour
                 }
                 break;
             case Type.BoxCheck:
-                if (Physics.CheckBox(this.transform.position, boxExtents/2, this.transform.rotation, hitMask, QueryTriggerInteraction.Ignore))
+                if (Physics.CheckBox(this.transform.position, boxExtents / 2, this.transform.rotation, hitMask, QueryTriggerInteraction.Ignore))
                 {
                     Hit = true;
                     return true;
                 }
                 break;
             case Type.SphereCheck:
-                if (Physics.CheckSphere(this.transform.position, spherecastRadius , hitMask, QueryTriggerInteraction.Ignore))
+                if (Physics.CheckSphere(this.transform.position, spherecastRadius, hitMask, QueryTriggerInteraction.Ignore))
                 {
                     Hit = true;
                     return true;
@@ -101,7 +101,7 @@ public class SensorScript : MonoBehaviour
                 }
                 break;
             case Type.BoxCast:
-                if (Physics.BoxCast(cachedTransform.position, boxExtents/2, dir, cachedTransform.rotation,raycastLength, hitMask, QueryTriggerInteraction.Ignore))
+                if (Physics.BoxCast(cachedTransform.position, boxExtents / 2, dir, cachedTransform.rotation, raycastLength, hitMask, QueryTriggerInteraction.Ignore))
                 {
                     Hit = true;
                     return true;
