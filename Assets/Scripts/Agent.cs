@@ -37,7 +37,7 @@ public class Agent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        sm.Update();    
+        sm.Update();
         if (sensor.Hit == true && stateChange == true)
         {
             sm.ChangeState(new IdleState(this));
