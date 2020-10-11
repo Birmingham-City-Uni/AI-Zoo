@@ -7,6 +7,7 @@ public class SeekState : State
     Agent owner;
     SensorScript sensor;
 
+    // class initialiser sets owner and sensor to given objects
     public SeekState(Agent owner, SensorScript sensor)
     {
         this.owner = owner;
@@ -21,6 +22,7 @@ public class SeekState : State
     public override void Execute()
     {
         Debug.Log("Executing Seek");
+        // Scans whilst seeking
         sensor.Scan(owner.transform.position, owner.transform.rotation, owner.transform.forward);
     }
 

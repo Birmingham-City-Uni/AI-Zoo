@@ -7,12 +7,14 @@ public class FSMStateManager
 {
     State currentState;
 
+    // Changes state to given state
     public void ChangeState(State newState)
     {
         if (currentState != null)
         {
             currentState.Exit();
         }
+        // Enters state given
         currentState = newState;
         newState.Enter();
     }
@@ -22,6 +24,7 @@ public class FSMStateManager
     {
         if (currentState != null)
         {
+            // Calls current state
             currentState.Execute();
         }
     }

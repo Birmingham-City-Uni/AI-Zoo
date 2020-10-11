@@ -11,6 +11,7 @@ public class SensorScript : MonoBehaviour
     // Sets layer mask to everything
     public LayerMask hitMask = ~0;
 
+    // Enum of all sensor types
     public enum SensorType
     {
         Line,
@@ -21,6 +22,7 @@ public class SensorScript : MonoBehaviour
         BoxCast,
     }
 
+    // Default variables
     public SensorType sensorType = SensorType.Line;
 
     public float raycastLength = 1.0f;
@@ -29,31 +31,27 @@ public class SensorScript : MonoBehaviour
 
     public float spherecastRadius = 5.0f;
 
-    public int rayResolution;
+    public int rayResolution = 1;
 
-    public int arcLength;
+    public int arcLength = 1;
 
     public bool Hit { get; private set; }
     public RaycastHit info;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        arcLength = 1;
-        rayResolution = 1;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    // Scan function
+    // Parameters:
+    // currentPosition: current object position
+    // currentRotation: current object rotation
+    // direction: current transform forward direction
+    //
+    // Returns true when enemies hit
 
     public bool Scan(Vector3 currentPosition, Quaternion currentRotation, Vector3 direction)
     {
         Hit = false;
         switch (sensorType)
         {
+            // Casts line in front of agent
             case SensorType.Line:
                 if (Physics.Linecast(currentPosition, currentPosition + direction * raycastLength, out info, hitMask, QueryTriggerInteraction.Ignore))
                 {
@@ -61,6 +59,7 @@ public class SensorScript : MonoBehaviour
                     return true;
                 }
                 break;
+            // Checks for object within box with size "boxExtents"
             case SensorType.BoxCheck:
                 if (Physics.CheckBox(currentPosition, boxExtents / 2, currentRotation, hitMask, QueryTriggerInteraction.Ignore))
                 {
@@ -68,6 +67,7 @@ public class SensorScript : MonoBehaviour
                     return true;
                 }
                 break;
+            // Checks for object within sphere with radius "spherecastRadius"
             case SensorType.SphereCheck:
                 if (Physics.CheckSphere(currentPosition, spherecastRadius, hitMask, QueryTriggerInteraction.Ignore))
                 {
@@ -75,6 +75,7 @@ public class SensorScript : MonoBehaviour
                     return true;
                 }
                 break;
+            // Casts lines with amount "rayResolution", accross arc "arcLength"
             case SensorType.RayBundle:
                 float angleInbetween = arcLength / rayResolution;
                 direction.y = direction.y - arcLength / 2;
@@ -88,6 +89,7 @@ public class SensorScript : MonoBehaviour
                     direction.y += angleInbetween;
                 }
                 break;
+            // Checks along sphere with radius "spherecastRadius" with length of "raycastLength"
             case SensorType.SphereCast:
                 if (Physics.SphereCast(new Ray(currentPosition, direction), spherecastRadius, out info, raycastLength, hitMask, QueryTriggerInteraction.Ignore))
                 {
@@ -100,6 +102,7 @@ public class SensorScript : MonoBehaviour
                     return true;
                 }
                 break;
+            // Checks along box with extents "boxExtents / 2" with length of "raycastLength"
             case SensorType.BoxCast:
                 if (Physics.BoxCast(currentPosition, boxExtents / 2, direction, currentRotation, raycastLength, hitMask, QueryTriggerInteraction.Ignore))
                 {
@@ -116,11 +119,16 @@ public class SensorScript : MonoBehaviour
         return false;
     }
 
+    // Gives the vector in the direction of rotationAngle from the current position
     public Vector3 VectorRotate(Vector3 currentPos, Vector3 vectorToRotate, float rotationAngle)
     {
+        // Finds direction vector
         Vector3 direction = vectorToRotate - currentPos;
+        // Multiplies direction by angle of rotation
         direction = Quaternion.Euler(0, rotationAngle, 0) * direction;
+        // Adds direction to current position
         vectorToRotate = direction + currentPos;
+        // Returns rotated vector
         return vectorToRotate;
     }
 }
