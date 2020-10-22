@@ -9,11 +9,7 @@ public class Grid : MonoBehaviour
 	public Vector3 gridWorldSize;
 	public float nodeRadius;
 	Node[, ,] grid;
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 	float nodeDiameter;
 	int gridSizeX, gridSizeY, gridSizeZ;
 
@@ -36,11 +32,7 @@ public class Grid : MonoBehaviour
 			for (int y = 0; y < gridSizeY; y++)
 			{
 				for (int z = 0; z <gridSizeZ; z++)
-<<<<<<< HEAD
 				{
-=======
-                {
->>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 					Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius) + Vector3.forward * (z * nodeDiameter + nodeRadius);
 					bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
 					grid[x, y, z] = new Node(walkable, worldPoint, x, y, z);
@@ -57,35 +49,24 @@ public class Grid : MonoBehaviour
 		{
 			for (int y = -1; y <= 1; y++)
 			{
-<<<<<<< HEAD
-			for (int z = -1; z <= 1; z++)
-			{
-				if (x == 0 && y == 0 && z == 0)
+				for (int z = -1; z <= 1; z++)
+				{
+					if (x == 0 && y == 0 && z == 0)
                     {
 						continue;
 					}
-=======
-				for (int z = -1; z <= 1; z++)
-                {
-					if (x == 0 && y == 0 && z == 0)
-						continue;
->>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 
 					int checkX = node.gridX + x;
 					int checkY = node.gridY + y;
 					int checkZ = node.gridZ + z;
 
-				if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY && checkZ >= 0 && checkZ < gridSizeZ)
+					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY && checkZ >= 0 && checkZ < gridSizeZ)
 					{
 						neighbours.Add(grid[checkX, checkY, checkZ]);
 					}
 				}
 			}
 		}
-<<<<<<< HEAD
-=======
-
->>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 		return neighbours;
 	}
 
@@ -117,20 +98,12 @@ public class Grid : MonoBehaviour
 			foreach (Node n in grid)
 			{
 				if (n.walkable == false)
-<<<<<<< HEAD
 				{
-=======
-                {
->>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 					Gizmos.color = Color.red;
 					Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
 				}
 				if (path != null)
-<<<<<<< HEAD
 				{
-=======
-                {
->>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 					if (path.Contains(n))
 					{
 						Gizmos.color = Color.black;
