@@ -23,7 +23,8 @@ namespace BrokenVector.LowPolyFencePack
         /// <returns>
         /// returns and sets the current door state
         /// </returns>
-        public DoorState CurrentState{
+        public DoorState CurrentState
+        {
             get
             {
                 return currentState;
