@@ -91,7 +91,6 @@ public class Grid : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, gridWorldSize.z));
-        
         if (grid != null)
         {
             foreach (Node n in grid)
