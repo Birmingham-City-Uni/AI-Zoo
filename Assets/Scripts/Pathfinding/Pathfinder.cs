@@ -37,9 +37,13 @@ public class Pathfinder : MonoBehaviour
 				if (openSet[i].fCost < node.fCost || openSet[i].fCost == node.fCost)
 				{
 					if (openSet[i].hCost < node.hCost)
+<<<<<<< HEAD
                     {
 						node = openSet[i];
 					}
+=======
+						node = openSet[i];
+>>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 				}
 			}
 
@@ -84,7 +88,13 @@ public class Pathfinder : MonoBehaviour
 			currentNode = currentNode.parent;
 		}
 		path.Reverse();
+<<<<<<< HEAD
 		grid.path = path;
+=======
+
+		grid.path = path;
+
+>>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 	}
 
 	int GetDistance(Node nodeA, Node nodeB)
@@ -95,6 +105,7 @@ public class Pathfinder : MonoBehaviour
 
 		// X is greatest
 		if (dstX > dstY && dstX > dstZ)
+<<<<<<< HEAD
 		{
 			// Y is second greatest
 			if (dstY > dstZ)
@@ -104,6 +115,17 @@ public class Pathfinder : MonoBehaviour
 			// Z is second greatest
 			else
 			{
+=======
+        {
+			// Y is second greatest
+			if (dstY > dstZ)
+            {
+				return 17 * dstZ + 14 * (dstY - dstZ) + 10 * (dstX - dstY);
+			}
+			// Z is second greatest
+            else
+            {
+>>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 				return 17 * dstY + 14 * (dstZ - dstY) + 10 * (dstX - dstZ);
 			}
 		}
@@ -140,7 +162,11 @@ public class Pathfinder : MonoBehaviour
 	void OnDrawGizmos()
 	{
 		if (grid != null)
+<<<<<<< HEAD
 		{
+=======
+        {
+>>>>>>> dda8a47132e06d8a493ad125e28bd2a4ab5bb60b
 			Gizmos.color = Color.cyan;
 			Node start = grid.NodeFromWorldPoint(seeker.position);
 			Gizmos.DrawCube(start.worldPosition, Vector3.one * (grid.nodeRadius * 2 - .1f));

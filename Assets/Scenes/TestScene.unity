@@ -212,7 +212,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &183425725
 GameObject:
@@ -312,7 +312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &325438346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +400,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &404741589
 GameObject:
@@ -492,7 +492,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -3.1160002, y: -30.000002, z: 0}
 --- !u!1 &465889921
 GameObject:
@@ -584,7 +584,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1669627510
 GameObject:
@@ -768,7 +768,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 3.098, y: 143.84201, z: -0.33400002}
 --- !u!1 &2029133369
 GameObject:
@@ -865,8 +865,8 @@ GameObject:
   - component: {fileID: 2106259884}
   - component: {fileID: 2106259883}
   - component: {fileID: 2106259882}
-  - component: {fileID: 2106259886}
   - component: {fileID: 2106259887}
+  - component: {fileID: 2106259886}
   m_Layer: 0
   m_Name: FSMSeeker
   m_TagString: Untagged
@@ -886,6 +886,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 105c3f80f739b474f9f4a31dfd401991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sensorType: 5
+  raycastLength: 5
+  boxExtents: {x: 2, y: 2, z: 2}
+  spherecastRadius: 5
+  rayResolution: 0
+  arcLength: 0
 --- !u!23 &2106259883
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -945,7 +951,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &2106259886
 MonoBehaviour:
@@ -974,4 +980,4 @@ MonoBehaviour:
   speed: 10
   rotationSpeed: 200
   autoRotationSpeed: 2
-  findObject: {fileID: 0}
+  findObject: {fileID: 57537088}
