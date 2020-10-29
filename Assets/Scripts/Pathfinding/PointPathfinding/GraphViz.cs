@@ -8,7 +8,7 @@ public class GraphViz : MonoBehaviour
 
     GameObject[] nodes;
     public float distanceThreshold = 1.0f;
-    public float stepDivider = 0.2f;
+    public float stepDivider = 0.1f;
     public float surfaceBelowDistance = 0.1f;
 
     List<Vector3> links;
@@ -52,19 +52,18 @@ public class GraphViz : MonoBehaviour
                         bool walkable = true;
 
                         // Step between the path in stages of stepDivider
-                        float stepsFloat = edge.magnitude / stepDivider;
-                        int steps = Convert.ToInt32(stepsFloat);
+                        int steps = Convert.ToInt32(edge.magnitude / stepDivider);
 
                         // Iterate though steps
                         for (int i = 0; i < steps; i++)
                         {
                             // Step through the distance between nodes
-                            Vector3 pos = node1.transform.position + edge.normalized * i;
+                            Vector3 pos = node1.transform.position + edge.normalized * (i / steps);
                             RaycastHit hit;
                             // Check if down raycast hits a surface
                             if(Physics.Raycast(pos, Vector3.down, out hit, distanceThreshold) && walkable == true)
                             {
-                                // If there isnt a surface within distance 0.1f set walkable to false
+                                // If there isnt a surface within surfaceBelowDistance set walkable to false
                                 if (hit.distance > surfaceBelowDistance)
                                 {
                                     walkable = false;
