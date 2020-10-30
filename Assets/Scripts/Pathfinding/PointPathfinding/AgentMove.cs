@@ -8,8 +8,9 @@ public class AgentMove : MonoBehaviour
     public MovementScript move;
     public GameObject target;
 
-    public float autoRotationSpeed = 2.0f;
-    public float speed = 10.0f;
+    public float autoRotationSpeed = 10.0f;
+    public float speed = 1.0f;
+    public float distanceAway = 0.2f;
 
     int currentIndex;
 
@@ -28,7 +29,7 @@ public class AgentMove : MonoBehaviour
 
         // Rotate towards object
 
-        this.transform.Rotate(0, angle_to_turn * Time.deltaTime * distance / 20 * autoRotationSpeed, 0);
+        this.transform.Rotate(0, angle_to_turn * Time.deltaTime * autoRotationSpeed, 0);
 
         // Translate locally forward in z
         this.transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
@@ -36,9 +37,9 @@ public class AgentMove : MonoBehaviour
 
     private void Update()
     {
-        if (this.transform.position != target.transform.position)
+        if (Vector3.Distance(this.transform.position, target.transform.position) > distanceAway)
         {
-            if (this.transform.position != PointPathfinder.finalPointGraph[currentIndex].worldPosition)
+            if (Vector3.Distance(this.transform.position, PointPathfinder.finalPointGraph[currentIndex].worldPosition) > distanceAway)
             {
                 Move(PointPathfinder.finalPointGraph[currentIndex].worldPosition);
             }

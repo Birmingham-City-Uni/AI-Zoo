@@ -23,7 +23,7 @@ public class PointPathfinder : MonoBehaviour
 
         for (int i = 0; i < numElements; i++)
         {
-            nodes[i] = new Point(nodeList.transform.GetChild(i).gameObject.transform.position);
+            nodes[i] = new Point(nodeList.transform.GetChild(i).gameObject.transform.position, i);
         }
     }
 
@@ -83,7 +83,7 @@ public class PointPathfinder : MonoBehaviour
 
     Point GetClosestNode(Vector3 startingPosition)
     {
-        Point closestNode = new Point(Vector3.zero);
+        Point closestNode = new Point(Vector3.zero, 0);
         float closestDistance = 100.0f;
 
         foreach(Point node in nodes)
@@ -136,8 +136,7 @@ public class PointPathfinder : MonoBehaviour
 
             openSet.Remove(node);
             closedSet.Add(node);
-
-            if (node == targetPoint)
+            if (node.id == targetPoint.id)
             {
                 RetracePath(startingPoint, targetPoint);
                 return;

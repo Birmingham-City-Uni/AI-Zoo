@@ -9,10 +9,12 @@ public class Point
     public float gCost;
     public float hCost;
     public Point parent;
+    public int id;
 
-    public Point(Vector3 _worldPos)
+    public Point(Vector3 _worldPos, int _id)
     {
         worldPosition = _worldPos;
+        id = _id;
     }
 
     public float fCost
