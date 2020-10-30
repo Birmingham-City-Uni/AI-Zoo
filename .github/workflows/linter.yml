@@ -25,4 +25,5 @@ jobs:
         uses: docker://github/super-linter:latest
         env:
           VALIDATE_CSHARP: true
+          FILTER_REGEX_INCLUDE: .*/Scripts/.*
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
