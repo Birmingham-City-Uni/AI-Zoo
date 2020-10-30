@@ -12,7 +12,7 @@ public class PointPathfinder : MonoBehaviour
     public float surfaceBelowDistance = 0.2f;
 
     public GameObject nodeList;
-    private Point [] nodes;
+    private Point[] nodes;
 
     public List<Point> finalPointGraph;
 
@@ -86,7 +86,7 @@ public class PointPathfinder : MonoBehaviour
         Point closestNode = new Point(Vector3.zero, 0);
         float closestDistance = 100.0f;
 
-        foreach(Point node in nodes)
+        foreach (Point node in nodes)
         {
             if (closestDistance > Vector3.Distance(startingPosition, node.worldPosition))
             {

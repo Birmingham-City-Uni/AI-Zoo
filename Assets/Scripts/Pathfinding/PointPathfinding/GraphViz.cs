@@ -30,11 +30,11 @@ public class GraphViz : MonoBehaviour
         {
             nodes[i] = this.transform.GetChild(i).gameObject;
         }
-        
+
         // Check each node again each other node
-        foreach(GameObject node1 in nodes)
+        foreach (GameObject node1 in nodes)
         {
-            foreach(GameObject node2 in nodes)
+            foreach (GameObject node2 in nodes)
             {
                 // Check if nodes are different
                 if (node1 != node2)
@@ -61,7 +61,7 @@ public class GraphViz : MonoBehaviour
                             Vector3 pos = node1.transform.position + edge.normalized * (i / steps);
                             RaycastHit hit;
                             // Check if down raycast hits a surface
-                            if(Physics.Raycast(pos, Vector3.down, out hit, distanceThreshold) && walkable == true)
+                            if (Physics.Raycast(pos, Vector3.down, out hit, distanceThreshold) && walkable == true)
                             {
                                 // If there isnt a surface within surfaceBelowDistance set walkable to false
                                 if (hit.distance > surfaceBelowDistance)
@@ -89,7 +89,7 @@ public class GraphViz : MonoBehaviour
     void Update()
     {
         int i = 0;
-        foreach(Vector3 link in links)
+        foreach (Vector3 link in links)
         {
             Debug.DrawLine(from_pos[i], from_pos[i] + link, Color.red);
             i++;
