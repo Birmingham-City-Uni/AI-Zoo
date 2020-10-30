@@ -23,7 +23,8 @@ namespace BrokenVector.LowPolyFencePack
         /// <returns>
         /// returns and sets the current door state
         /// </returns>
-        public DoorState CurrentState {
+        public DoorState CurrentState
+        {
             get
             {
                 return currentState;
@@ -62,7 +63,7 @@ namespace BrokenVector.LowPolyFencePack
                 Debug.LogError("Every DoorController needs an Animator.");
                 return;
             }
-            
+
             // animator settings
             animator.playAutomatically = false;
 
