@@ -22,7 +22,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Super-Linter
-        uses: docker://github/super-linter:latest
+        uses: docker://github/super-linter@v3.11.0
         env:
           VALIDATE_CSHARP: true
           FILTER_REGEX_INCLUDE: .*/Scripts/.*
