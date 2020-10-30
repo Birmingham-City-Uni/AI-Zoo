@@ -48,7 +48,7 @@ public class MovementScript : MonoBehaviour
         }
 
         // Forward facing ray
-        Debug.DrawRay(agentPos.transform.position, agentPos.transform.forward * 10.0f, Color.green, 2.0f);
+        Debug.DrawRay(agentPos.transform.position, agentPos.transform.forward * CalculateDistance(agentPos, targetPos), Color.green, 2.0f);
         // Ray to finder object
         Debug.DrawRay(agentPos.transform.position, vectorToFindObject, Color.red, 2.0f);
 
