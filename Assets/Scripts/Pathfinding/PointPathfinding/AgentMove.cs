@@ -7,7 +7,7 @@ public class AgentMove : MonoBehaviour
     public PointPathfinder PointPathfinder;
     public MovementScript move;
     public GameObject target;
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     public float autoRotationSpeed = 10.0f;
     public float speed = 1.0f;
@@ -20,7 +20,6 @@ public class AgentMove : MonoBehaviour
         PointPathfinder.InitaliseNodes();
         PointPathfinder.FindPath(this.transform.position, target.transform.position);
         currentIndex = 0;
-        rb.GetComponent<Rigidbody>();
     }
 
     void Move(Vector3 targetPos)

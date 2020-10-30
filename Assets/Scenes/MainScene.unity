@@ -4149,6 +4149,7 @@ MonoBehaviour:
   PointPathfinder: {fileID: 1687130091}
   move: {fileID: 652698879}
   target: {fileID: 1906696313}
+  rb: {fileID: 652698880}
   autoRotationSpeed: 10
   speed: 1
   distanceAway: 0.2
@@ -12200,7 +12201,7 @@ PrefabInstance:
       value: PathdindingNode (10)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9e4f531c905dde649bd634ce24e4a9aa, type: 3
+  m_SourcePrefab: {fileID: 100100000, guid: 9e4f531c905dde649bd634ce24e4a9aa, type: 3}
 --- !u!1 &2126333255
 GameObject:
   m_ObjectHideFlags: 0
