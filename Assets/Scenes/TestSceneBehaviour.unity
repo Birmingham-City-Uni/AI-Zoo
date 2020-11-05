@@ -225,7 +225,19 @@ MonoBehaviour:
   foodSource: {fileID: 638204468}
   waterSource: {fileID: 1901552978}
   shelterSource: {fileID: 1938112605}
-  pandaSpeed: 5
+  pandaSpeed: 2
+--- !u!114 &236104552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236104548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb3eaef141f5b8841b0dd7945d9db1d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &404741589
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638204468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.41, y: 0.4, z: 9.040099}
+  m_LocalPosition: {x: -9.41, y: -0.48, z: 9.040099}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -927,7 +939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901552978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.668, y: 0.4, z: 17.6481}
+  m_LocalPosition: {x: -9.668, y: -0.47, z: 17.6481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1022,7 +1034,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938112605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.33, y: 0.4, z: 17.6481}
+  m_LocalPosition: {x: -18.33, y: -0.43, z: 17.6481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
