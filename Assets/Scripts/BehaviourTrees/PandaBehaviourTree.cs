@@ -32,11 +32,12 @@ public class PandaBehaviourTree : MonoBehaviour
     {
 
         anim = GetComponent<Animator>();
-        moveScript = GetComponent <MovementScript>();
+        moveScript = GetComponent<MovementScript>();
 
         // Create panda with following parameters
         panda = new Panda("Panda1", this.gameObject, 80, 80, 80, pandaSpeed, anim, moveScript);
 
+#pragma warning disable format
         // Create root node
         tree = BT.Root();
         // Open initial branch
@@ -52,6 +53,7 @@ public class PandaBehaviourTree : MonoBehaviour
                 )
             )
         );
+#pragma warning restore format 
     }
 
     // Update is called once per frame
