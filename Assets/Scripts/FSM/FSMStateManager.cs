@@ -53,7 +53,7 @@ public class FSMStateManager
     {
         if (this.stack.Count > 0)
         {
-            return (State) this.stack.Peek();
+            return (State)this.stack.Peek();
         }
         else
         {

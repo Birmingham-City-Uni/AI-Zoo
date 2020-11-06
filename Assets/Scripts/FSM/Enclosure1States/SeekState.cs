@@ -11,8 +11,6 @@ public class SeekState : State
 
     }
 
-    private IdleState idleState;
-
     public override void Enter()
     {
         Debug.Log("Entering Seek");
@@ -26,7 +24,7 @@ public class SeekState : State
         {
             Debug.Log("Target has moved");
             sm.PopState();
-            sm.PushState(idleState);
+            sm.PushState(agent.idleState);
         }
         agent.Move();
     }

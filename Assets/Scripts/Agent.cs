@@ -9,9 +9,9 @@ public class Agent : MonoBehaviour
     // Creates instances of sensor and FSM 
     public SensorScript sensorScript;
     private FSMStateManager stateManager;
-    private SeekState seekState;
-    private IdleState idleState;
-    private CalculatePathState calculatePathState;
+    public SeekState seekState;
+    public IdleState idleState;
+    public CalculatePathState calculatePathState;
 
     public PointPathfinder pointPathfinder;
     public MovementScript move;
@@ -107,8 +107,6 @@ public class Agent : MonoBehaviour
         {
             stateManager.PopState();
             stateManager.PushState(idleState);
-            
         }
-
     }
 }
