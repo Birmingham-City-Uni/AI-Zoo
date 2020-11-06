@@ -7,7 +7,6 @@ public class AgentMove : MonoBehaviour
     public PointPathfinder PointPathfinder;
     public MovementScript move;
     public GameObject target;
-    public Rigidbody rb;
 
     public float autoRotationSpeed = 10.0f;
     public float speed = 1.0f;

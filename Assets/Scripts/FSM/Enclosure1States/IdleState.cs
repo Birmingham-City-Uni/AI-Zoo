@@ -6,9 +6,9 @@ public class IdleState : State
 {
     Agent owner;
 
-    public IdleState(Agent owner)
+    public IdleState(Agent agent, FSMStateManager sm) : base(agent, sm)
     {
-        this.owner = owner;
+
     }
 
     public override void Enter()

@@ -16,6 +16,8 @@ public class PointPathfinder : MonoBehaviour
 
     public List<Point> finalPointGraph;
 
+    public Point cachedTargetPoint;
+
     public void InitaliseNodes()
     {
         int numElements = nodeList.transform.childCount;
@@ -81,7 +83,7 @@ public class PointPathfinder : MonoBehaviour
         return neighbours;
     }
 
-    Point GetClosestNode(Vector3 startingPosition)
+    public Point GetClosestNode(Vector3 startingPosition)
     {
         Point closestNode = new Point(Vector3.zero, 0);
         float closestDistance = 100.0f;
@@ -120,6 +122,8 @@ public class PointPathfinder : MonoBehaviour
 
         Point startingPoint = GetClosestNode(startingPos);
         Point targetPoint = GetClosestNode(finishPos);
+        cachedTargetPoint = targetPoint;
+
         openSet.Add(startingPoint);
 
         while (openSet.Count > 0)

@@ -7,70 +7,108 @@ using UnityEngine;
 public class Agent : MonoBehaviour
 {
     // Creates instances of sensor and FSM 
-    FSMStateManager sm = new FSMStateManager();
-    SensorScript sensor = new SensorScript();
+    public SensorScript sensorScript;
+    private FSMStateManager stateManager;
+    private SeekState seekState;
+    private IdleState idleState;
+    private CalculatePathState calculatePathState;
 
-    // States used by agent
-    private enum State
-    {
-        Idle,
-        Sensing,
-    }
+    public PointPathfinder pointPathfinder;
+    public MovementScript move;
+    public GameObject target;
 
-    State currentState = State.Idle;
+    public float rotationSpeed = 10.0f;
+    public float speed = 1.0f;
+    public float distanceAwayFromNode = 0.2f;
 
-    // Default in-editor settings for sense script
-    public SensorScript.SensorType sensorType = SensorScript.SensorType.Line;
-    public float raycastLength = 1.0f;
-    [Header("BoxExtent Settings")]
-    public Vector3 boxExtents = new Vector3(1.0f, 1.0f, 1.0f);
-    [Header("SphereCast Settings")]
-    public float spherecastRadius = 5.0f;
-    [Header("RayBundle Settings")]
-    [Range(1, 20)]
-    public int rayResolution;
-    [Range(1, 360)]
-    public int arcLength;
+    private int currentIndex;
 
+    private Vector3 cachedPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Gives sensor scripts the in-editor variables set above
-        sensor.sensorType = this.sensorType;
-        sensor.boxExtents = this.boxExtents;
-        sensor.raycastLength = this.raycastLength;
-        sensor.spherecastRadius = this.spherecastRadius;
-        sensor.rayResolution = this.rayResolution;
-        sensor.arcLength = this.arcLength;
-
         // Sets state to seek
-        sm.ChangeState(new SeekState(this, sensor));
+        stateManager = new FSMStateManager();
+        idleState = new IdleState(this, stateManager);
+        seekState = new SeekState(this, stateManager);
+        calculatePathState = new CalculatePathState(this, stateManager);
+        stateManager.Init(idleState);
+        pointPathfinder.InitaliseNodes();
     }
 
     // Update is called once per frame
     void Update()
     {
         // Calls state update
-        sm.Update();
+        stateManager.Update();
         // Calls state selector
         StateSelector();
     }
 
-    void StateSelector()
+    public void Move()
     {
-        // Checks for sensor hit and if state is not currently idle
-        if (sensor.Hit == true && currentState != State.Idle)
+
+        if (move.CalculateDistance(this.gameObject, pointPathfinder.finalPointGraph[currentIndex].worldPosition) > distanceAwayFromNode)
         {
-            sm.ChangeState(new IdleState(this));
-            // Changes enum to current state
-            currentState = State.Idle;
+            // Get angle
+            float angle_to_turn = move.CalculateAngle(this.gameObject, pointPathfinder.finalPointGraph[currentIndex].worldPosition);
+
+            this.transform.Rotate(0, angle_to_turn * Time.deltaTime * rotationSpeed, 0);
+
+            // Translate locally forward in z
+            this.transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
+        }
+        else
+        {
+            if (currentIndex < pointPathfinder.finalPointGraph.Count - 1)
+            {
+                currentIndex += 1;
+            }
+        }
+    }
+
+    public void CalculatePath()
+    {
+        pointPathfinder.FindPath(this.transform.position, target.transform.position);
+    }
+
+    public bool IsTargetNotAtCachedPosition()
+    {
+        Point targetClosestNode = pointPathfinder.GetClosestNode(target.transform.position);
+
+        if (pointPathfinder.cachedTargetPoint.id != targetClosestNode.id)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
 
-        if (sensor.Hit == false && currentState != State.Sensing)
+    }
+
+    void StateSelector()
+    {
+        if (stateManager.GetCurrentState().GetType() == typeof(CalculatePathState))
         {
-            sm.ChangeState(new SeekState(this, sensor));
-            currentState = State.Sensing;
+            stateManager.PopState();
+            stateManager.PushState(seekState);
         }
+
+        if (stateManager.GetCurrentState().GetType() == typeof(IdleState) && sensorScript.Hit == false)
+        {
+            stateManager.PopState();
+            stateManager.PushState(calculatePathState);
+            currentIndex = 0;
+        }
+
+        if (sensorScript.Hit == true && stateManager.GetCurrentState().GetType() == typeof(SeekState))
+        {
+            stateManager.PopState();
+            stateManager.PushState(idleState);
+            
+        }
+
     }
 }

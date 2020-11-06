@@ -5,27 +5,69 @@ using UnityEngine.Rendering;
 
 public class FSMStateManager
 {
-    State currentState;
 
-    // Changes state to given state
-    public void ChangeState(State newState)
+    private Stack stack;
+
+    public void Init(State initialState)
     {
-        if (currentState != null)
+        this.stack = new Stack();
+        stack.Push(initialState);
+        initialState.Enter();
+    }
+
+    public bool PopState()
+    {
+        if (stack.Count > 0)
         {
-            currentState.Exit();
+            GetCurrentState().Exit();
+            stack.Pop();
+            return true;
         }
-        // Enters state given
-        currentState = newState;
-        newState.Enter();
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool PushState(State pushedState)
+    {
+        if (this.stack.Count == 0)
+        {
+            this.stack.Push(pushedState);
+            GetCurrentState().Enter();
+            return true;
+        }
+        else if (this.stack.Peek() != pushedState)
+        {
+            this.stack.Push(pushedState);
+            GetCurrentState().Enter();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public State GetCurrentState()
+    {
+        if (this.stack.Count > 0)
+        {
+            return (State) this.stack.Peek();
+        }
+        else
+        {
+            return null;
+        }
     }
 
     // Update is called once per frame
     public void Update()
     {
-        if (currentState != null)
+        if (GetCurrentState() != null)
         {
             // Calls current state
-            currentState.Execute();
+            GetCurrentState().Execute();
         }
     }
 }

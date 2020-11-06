@@ -131,4 +131,80 @@ public class SensorScript : MonoBehaviour
         // Returns rotated vector
         return vectorToRotate;
     }
+
+    void OnDrawGizmos()
+    {
+        // Checks whether application is running
+        // Removes error messages when not running
+        if (Application.isPlaying == false)
+        {
+            return;
+        }
+        Gizmos.color = Color.white;
+        // Calls for sensor scan giving current objects position, rotation and forward facing direction
+        Scan(this.transform.position, this.transform.rotation, this.transform.forward);
+        // Checks for hit, changes colour to red
+        if (Hit)
+        {
+            Gizmos.color = Color.red;
+        }
+        Gizmos.matrix *= Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+        float length = raycastLength;
+        switch (sensorType)
+        {
+            // Draws sensor line from middle of object infront * length
+            case SensorScript.SensorType.Line:
+                Gizmos.DrawLine(Vector3.zero, Vector3.forward * length);
+                break;
+            // Draws box around player, from center with extents of "boxExtents"
+            case SensorScript.SensorType.BoxCheck:
+                Gizmos.DrawWireCube(Vector3.zero, boxExtents);
+                break;
+            // Draws Sphere around player, from center with radius of "spherecastRadius"
+            case SensorScript.SensorType.SphereCheck:
+                Gizmos.DrawWireSphere(Vector3.zero, spherecastRadius);
+                break;
+            // Shows rays coming from object
+            case SensorScript.SensorType.RayBundle:
+                float angleInbetween = 0;
+                float rotation = 0;
+                if (rayResolution > 1)
+                {
+                    angleInbetween = arcLength / rayResolution;
+                    rotation = -arcLength / 2;
+                }
+                for (int i = 0; i < (rayResolution); i++)
+                {
+                    rotation += angleInbetween;
+                    Gizmos.DrawLine(Vector3.zero, VectorRotate(Vector3.zero, Vector3.forward, rotation) * length);
+                }
+                break;
+            case SensorScript.SensorType.SphereCast:
+                // Draws starting sphere
+                Gizmos.DrawWireSphere(Vector3.zero, spherecastRadius);
+
+                // Draws connecting lines
+                Gizmos.DrawLine(Vector3.up * spherecastRadius, Vector3.up * spherecastRadius + Vector3.forward * length);
+                Gizmos.DrawLine(Vector3.down * spherecastRadius, Vector3.down * spherecastRadius + Vector3.forward * length);
+                Gizmos.DrawLine(Vector3.left * spherecastRadius, Vector3.left * spherecastRadius + Vector3.forward * length);
+                Gizmos.DrawLine(Vector3.right * spherecastRadius, Vector3.right * spherecastRadius + Vector3.forward * length);
+
+                // Draws last sphere
+                Gizmos.DrawWireSphere(Vector3.zero + Vector3.forward * length, spherecastRadius);
+                break;
+            case SensorScript.SensorType.BoxCast:
+                // Draws starting box
+                Gizmos.DrawWireCube(Vector3.zero, boxExtents);
+
+                // Draws connecting lines
+                Gizmos.DrawLine(new Vector3(-boxExtents.x, boxExtents.y, 0) / 2, new Vector3(-boxExtents.x, boxExtents.y, 0) / 2 + Vector3.forward * length);
+                Gizmos.DrawLine(new Vector3(-boxExtents.x, -boxExtents.y, 0) / 2, new Vector3(-boxExtents.x, -boxExtents.y, 0) / 2 + Vector3.forward * length);
+                Gizmos.DrawLine(new Vector3(boxExtents.x, boxExtents.y, 0) / 2, new Vector3(boxExtents.x, boxExtents.y, 0) / 2 + Vector3.forward * length);
+                Gizmos.DrawLine(new Vector3(boxExtents.x, -boxExtents.y, 0) / 2, new Vector3(boxExtents.x, -boxExtents.y, 0) / 2 + Vector3.forward * length);
+
+                // Draws last box
+                Gizmos.DrawWireCube(Vector3.zero + Vector3.forward * length, boxExtents);
+                break;
+        }
+    }
 }

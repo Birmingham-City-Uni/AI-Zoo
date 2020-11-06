@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class SeekState : State
 {
-    Agent owner;
-    SensorScript sensor;
 
     // class initialiser sets owner and sensor to given objects
-    public SeekState(Agent owner, SensorScript sensor)
+    public SeekState(Agent agent, FSMStateManager sm) : base(agent, sm)
     {
-        this.owner = owner;
-        this.sensor = sensor;
+
     }
+
+    private IdleState idleState;
 
     public override void Enter()
     {
@@ -22,8 +21,14 @@ public class SeekState : State
     public override void Execute()
     {
         Debug.Log("Executing Seek");
-        // Scans whilst seeking
-        sensor.Scan(owner.transform.position, owner.transform.rotation, owner.transform.forward);
+
+        if (agent.IsTargetNotAtCachedPosition() == true)
+        {
+            Debug.Log("Target has moved");
+            sm.PopState();
+            sm.PushState(idleState);
+        }
+        agent.Move();
     }
 
     public override void Exit()

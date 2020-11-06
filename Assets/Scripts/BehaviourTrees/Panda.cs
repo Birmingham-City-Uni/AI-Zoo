@@ -71,7 +71,7 @@ public class Panda
     {
         food -= 2.0f * Time.deltaTime;
         water -= 2.0f * Time.deltaTime;
-        temperature -= 2.0f * Time.deltaTime;
+        temperature -= 2.5f * Time.deltaTime;
     }
 
     // Called every frame to update pandas parameters and move panda
@@ -141,7 +141,7 @@ public class Panda
     public int[] CheckNeed()
     {
         // Array for each need
-        // Food index 0,  Water index 1, shade index 3
+        // Food index 0,  Water index 1, heat index 3
         int[] needs = new int[3];
 
         // Checks what animal currently needs more

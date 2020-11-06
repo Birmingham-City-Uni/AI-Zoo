@@ -4,6 +4,16 @@ using UnityEngine;
 
 public abstract class State
 {
+
+    protected Agent agent;
+    protected FSMStateManager sm;
+
+    protected State(Agent _agent, FSMStateManager _sm)
+    {
+        agent = _agent;
+        sm = _sm;
+    }
+
     // Methods to be defined on use
     public abstract void Enter();
     public abstract void Execute();
