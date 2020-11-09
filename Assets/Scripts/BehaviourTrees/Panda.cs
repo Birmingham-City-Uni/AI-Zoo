@@ -100,7 +100,7 @@ public class Panda
                         // Plays animation
                         anim.Play("Hit");
                         // Eats food
-                        food += 0.05f;
+                        food += 0.08f;
                     }
                     else
                     {
@@ -113,7 +113,7 @@ public class Panda
                     if (water < 99.0f)
                     {
                         anim.Play("Attack");
-                        water += 0.05f;
+                        water += 0.08f;
                     }
                     else
                     {
@@ -125,7 +125,7 @@ public class Panda
                     if (temperature < 99.0f)
                     {
                         anim.Play("Idle2");
-                        temperature += 0.02f;
+                        temperature += 0.04f;
                     }
                     else
                     {

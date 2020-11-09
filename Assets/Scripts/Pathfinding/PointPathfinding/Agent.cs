@@ -23,8 +23,6 @@ public class Agent : MonoBehaviour
 
     private int currentIndex;
 
-    private Vector3 cachedPosition;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +46,6 @@ public class Agent : MonoBehaviour
 
     public void Move()
     {
-
         if (move.CalculateDistance(this.gameObject, pointPathfinder.finalPointGraph[currentIndex].worldPosition) > distanceAwayFromNode)
         {
             // Get angle

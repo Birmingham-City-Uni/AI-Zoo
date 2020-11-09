@@ -12,7 +12,7 @@ public class PointPathfinder : MonoBehaviour
     public float surfaceBelowDistance = 0.2f;
 
     public GameObject nodeList;
-    private Point[] nodes;
+    public Point[] nodes;
 
     public List<Point> finalPointGraph;
 
@@ -81,6 +81,19 @@ public class PointPathfinder : MonoBehaviour
             }
         }
         return neighbours;
+    }
+
+    public Point GetRandomPoint()
+    {
+        if (nodes.Length > 0)
+        {
+            int randomInt = UnityEngine.Random.Range(0, nodes.Length);
+            return nodes[randomInt];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public Point GetClosestNode(Vector3 startingPosition)
