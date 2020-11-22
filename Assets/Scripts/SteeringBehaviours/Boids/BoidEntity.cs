@@ -13,7 +13,7 @@ public class BoidEntity : MonoBehaviour
     private float speed = 1.0f;
 
     // Distance in which a boid considers another boid a neighbour
-    private float distanceToNeighbour = 10.0f;
+    private float distanceToNeighbour = 4.0f;
 
     // Set as true when a bird needs to turn in order to stay in the bounds
     private bool turning = true;

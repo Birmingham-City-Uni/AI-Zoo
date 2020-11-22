@@ -10,9 +10,9 @@ public class FlockSpawn : MonoBehaviour
     public GameObject birdPrefab;
 
     // Size of bounding box that dictates both boid spawn position, and movement bounds
-    public static int flockBounds = 100;
+    public static int flockBounds = 50;
     // Amount of boids that are spawned
-    private static int flockSize = 700;
+    private static int flockSize = 300;
 
     // Array that stores all birds in the scene
     public static GameObject[] birdsArray = new GameObject[flockSize];
@@ -32,7 +32,7 @@ public class FlockSpawn : MonoBehaviour
     private Vector3 birdSpawnPosition;
 
     // Player object
-    public GameObject player;
+    private GameObject player;
     // Stores players current position
     private Vector3 playerPosition;
 
@@ -55,6 +55,8 @@ public class FlockSpawn : MonoBehaviour
 
         // Select initial goal
         SelectGoal();
+
+        player = GameObject.FindWithTag("Player");
 
         // Get players starting position
         playerPosition = player.transform.position;
@@ -107,6 +109,6 @@ public class FlockSpawn : MonoBehaviour
     {
         // Display boid bounds in the scene
         Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(new Vector3(playerPosition.x, playerPosition.y + 55, playerPosition.z), new Vector3(flockBounds * 2, 90, flockBounds * 2));
+        Gizmos.DrawWireCube(new Vector3(playerPosition.x, playerPosition.y + 32.50f, playerPosition.z), new Vector3(flockBounds * 2, 45, flockBounds * 2));
     }
 }
