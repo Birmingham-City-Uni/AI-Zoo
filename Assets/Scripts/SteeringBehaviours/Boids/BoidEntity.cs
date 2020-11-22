@@ -73,7 +73,7 @@ public class BoidEntity : MonoBehaviour
 
         // Only evaluates true when bird isnt turning back into the bounds
         // Only enters 20% of the time
-        if (Random.Range(0,5) < 1  && turning != true)
+        if (Random.Range(0, 5) < 1 && turning != true)
         {
             // Sets up an array of birds
             GameObject[] flockBirds;

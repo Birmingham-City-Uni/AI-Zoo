@@ -48,14 +48,14 @@ public class FlockSpawn : MonoBehaviour
         goalPositionsArray = new GameObject[arraySize];
 
         // Get all child nodes from parent node - Store in array
-        for (int i = 0;  i < arraySize;  i++)
+        for (int i = 0; i < arraySize; i++)
         {
             goalPositionsArray[i] = goalPositionParentNode.transform.GetChild(i).gameObject;
         }
 
         // Select initial goal
         SelectGoal();
-        
+
         // Get players starting position
         playerPosition = player.transform.position;
 
