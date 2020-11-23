@@ -6,7 +6,9 @@ public class Point
 {
     public Vector3 worldPosition;
 
+    // Cost to reach this point so far
     public float gCost;
+    // Estimated cost to reach target from this point
     public float hCost;
     public Point parent;
     public int id;
@@ -17,6 +19,7 @@ public class Point
         id = _id;
     }
 
+    // Total estimated cost of path through this point
     public float fCost
     {
         get

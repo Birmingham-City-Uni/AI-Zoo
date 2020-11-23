@@ -3463,7 +3463,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1001 &225286189
 PrefabInstance:
@@ -9350,7 +9350,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &652698881
 BoxCollider:
@@ -10146,7 +10146,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1001 &707463871
 PrefabInstance:
@@ -18413,7 +18413,7 @@ PrefabInstance:
     - target: {fileID: 1764028415861045847, guid: 9e4f531c905dde649bd634ce24e4a9aa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.744
+      value: 15.4
       objectReference: {fileID: 0}
     - target: {fileID: 1764028415861045847, guid: 9e4f531c905dde649bd634ce24e4a9aa,
         type: 3}
@@ -18423,7 +18423,7 @@ PrefabInstance:
     - target: {fileID: 1764028415861045847, guid: 9e4f531c905dde649bd634ce24e4a9aa,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.144
+      value: 3.35
       objectReference: {fileID: 0}
     - target: {fileID: 1764028415861045847, guid: 9e4f531c905dde649bd634ce24e4a9aa,
         type: 3}
@@ -22891,7 +22891,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1628234109
 MonoBehaviour:

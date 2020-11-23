@@ -22,7 +22,7 @@ public class SeekState : State
         if (agent.IsTargetNotAtCachedPosition() == true)
         {
             // 16% chance to recalculate path
-            if (Random.Range(0,6) < 1)
+            if (Random.Range(0, 6) < 1)
             {
                 Debug.Log("Target has moved");
                 sm.PopState();

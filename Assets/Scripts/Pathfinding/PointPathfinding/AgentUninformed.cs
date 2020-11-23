@@ -85,6 +85,7 @@ public class AgentUninformed : MonoBehaviour
         {
             foreach (Point node in pointPathfinder.finalPointGraph)
             {
+                Gizmos.color = Color.cyan;
                 Gizmos.DrawWireSphere(node.worldPosition, 0.5f);
             }
         }
