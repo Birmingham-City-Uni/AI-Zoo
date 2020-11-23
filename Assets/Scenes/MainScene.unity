@@ -3410,7 +3410,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 224400604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 105c3f80f739b474f9f4a31dfd401991, type: 3}
+  m_Script: {fileID: 11500000, guid: 3170e13a3762ed846a93dfac5c9af062, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sensorScript: {fileID: 224400606}
@@ -3418,9 +3418,8 @@ MonoBehaviour:
   move: {fileID: 224400607}
   target: {fileID: 706467509}
   rotationSpeed: 10
-  speed: 2
-  distanceAwayFromNode: 0.4
-  currentIndex: 0
+  speed: 1
+  distanceAwayFromNode: 0.3
 --- !u!114 &224400609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9325,7 +9324,6 @@ MonoBehaviour:
   rotationSpeed: 10
   speed: 2
   distanceAwayFromNode: 0.4
-  currentIndex: 0
 --- !u!114 &652698879
 MonoBehaviour:
   m_ObjectHideFlags: 0

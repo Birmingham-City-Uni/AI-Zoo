@@ -177,6 +177,43 @@ public class PointPathfinder : MonoBehaviour
         }
     }
 
+    public void BreadthFirstSearch(Vector3 startingPos, Vector3 finishPos)
+    {
+        Queue<Point> openSet = new Queue<Point>();
+        List<Point> closedSet = new List<Point>();
+
+        Point startingPoint = GetClosestNode(startingPos);
+        Point targetPoint = GetClosestNode(finishPos);
+        cachedTargetPoint = targetPoint;
+
+        openSet.Enqueue(startingPoint);
+
+        while (openSet.Count != 0)
+        {
+            Point point = openSet.Dequeue();
+            closedSet.Add(point);
+
+            if (point.id == targetPoint.id)
+            {
+                RetracePath(startingPoint, targetPoint);
+                return;
+            }
+
+            foreach (Point neighbour in GetNeighbourNodes(point))
+            {
+                if (closedSet.Contains(neighbour))
+                {
+                    continue;
+                }
+                if (openSet.Contains(neighbour) == false)
+                {
+                    openSet.Enqueue(neighbour);
+                    neighbour.parent = point;
+                }
+            }
+        }
+    }
+
     float GetDistance(Vector3 pointA, Vector3 pointB)
     {
         float distanceX = Mathf.Abs(pointA.x - pointB.x);
