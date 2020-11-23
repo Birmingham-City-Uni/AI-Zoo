@@ -6,31 +6,34 @@ public class SeekState : State
 {
 
     // class initialiser sets owner and sensor to given objects
-    public SeekState(Agent agent, FSMStateManager sm) : base(agent, sm)
+    public SeekState(AgentAStar agent, FSMStateManager sm) : base(agent, sm)
     {
 
     }
 
     public override void Enter()
     {
-        Debug.Log("Entering Seek");
+
     }
 
     public override void Execute()
     {
-        Debug.Log("Executing Seek");
 
         if (agent.IsTargetNotAtCachedPosition() == true)
         {
-            Debug.Log("Target has moved");
-            sm.PopState();
-            sm.PushState(agent.idleState);
+            // 16% chance to recalculate path
+            if (Random.Range(0,6) < 1)
+            {
+                Debug.Log("Target has moved");
+                sm.PopState();
+                sm.PushState(agent.idleState);
+            }
         }
         agent.Move();
     }
 
     public override void Exit()
     {
-        Debug.Log("Exiting Seek");
+
     }
 }

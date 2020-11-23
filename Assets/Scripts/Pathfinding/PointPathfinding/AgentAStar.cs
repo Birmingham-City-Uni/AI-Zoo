@@ -4,7 +4,7 @@ using System.Transactions;
 using UnityEngine;
 
 
-public class Agent : MonoBehaviour
+public class AgentAStar : MonoBehaviour
 {
     // Creates instances of sensor and FSM 
     public SensorScript sensorScript;
@@ -19,7 +19,7 @@ public class Agent : MonoBehaviour
 
     public float rotationSpeed = 10.0f;
     public float speed = 1.0f;
-    public float distanceAwayFromNode = 0.2f;
+    public float distanceAwayFromNode = 0.3f;
 
     private int currentIndex;
 
@@ -61,6 +61,7 @@ public class Agent : MonoBehaviour
             if (currentIndex < pointPathfinder.finalPointGraph.Count - 1)
             {
                 currentIndex += 1;
+                Debug.Log("Index now:" + currentIndex);
             }
         }
     }
@@ -68,6 +69,12 @@ public class Agent : MonoBehaviour
     public void CalculatePath()
     {
         pointPathfinder.FindPath(this.transform.position, target.transform.position);
+        float distanceToSecondPoint = Vector3.Distance(this.transform.position, pointPathfinder.finalPointGraph[1].worldPosition);
+        if (distanceToSecondPoint < pointPathfinder.distanceThreshold &&
+            Mathf.Abs(pointPathfinder.finalPointGraph[0].worldPosition.y - pointPathfinder.finalPointGraph[1].worldPosition.y) < 0.1f)
+        {
+            currentIndex = 1;
+        }
     }
 
     public bool IsTargetNotAtCachedPosition()
@@ -104,6 +111,17 @@ public class Agent : MonoBehaviour
         {
             stateManager.PopState();
             stateManager.PushState(idleState);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (pointPathfinder.finalPointGraph != null)
+        {
+            foreach (Point node in pointPathfinder.finalPointGraph)
+            {
+                Gizmos.DrawWireSphere(node.worldPosition, 0.5f);
+            }
         }
     }
 }

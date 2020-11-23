@@ -5,10 +5,10 @@ using UnityEngine;
 public abstract class State
 {
 
-    protected Agent agent;
+    protected AgentAStar agent;
     protected FSMStateManager sm;
 
-    protected State(Agent _agent, FSMStateManager _sm)
+    protected State(AgentAStar _agent, FSMStateManager _sm)
     {
         agent = _agent;
         sm = _sm;

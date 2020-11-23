@@ -29,7 +29,7 @@ public class PointPathfinder : MonoBehaviour
         }
     }
 
-    List<Point> GetNeighboutNodes(Point currentNode)
+    List<Point> GetNeighbourNodes(Point currentNode)
     {
         List<Point> neighbours = new List<Point>();
 
@@ -103,10 +103,10 @@ public class PointPathfinder : MonoBehaviour
 
         foreach (Point node in nodes)
         {
-            if (closestDistance > Vector3.Distance(startingPosition, node.worldPosition))
+            if (closestDistance > GetDistance(startingPosition, node.worldPosition))
             {
                 closestNode = node;
-                closestDistance = Vector3.Distance(startingPosition, node.worldPosition);
+                closestDistance = GetDistance(startingPosition, node.worldPosition);
             }
         }
         return closestNode;
@@ -158,23 +158,37 @@ public class PointPathfinder : MonoBehaviour
                 RetracePath(startingPoint, targetPoint);
                 return;
             }
-            foreach (Point neighbour in GetNeighboutNodes(node))
+            foreach (Point neighbour in GetNeighbourNodes(node))
             {
                 if (closedSet.Contains(neighbour))
                 {
                     continue;
                 }
-                float newCostToNeighbour = node.gCost + Vector3.Distance(node.worldPosition, neighbour.worldPosition);
-                if (newCostToNeighbour < neighbour.gCost || !openSet.Contains(neighbour))
+                float newCostToNeighbour = node.gCost + GetDistance(node.worldPosition, neighbour.worldPosition);
+                if (newCostToNeighbour < neighbour.gCost || openSet.Contains(neighbour) == false)
                 {
                     neighbour.gCost = newCostToNeighbour;
-                    neighbour.hCost = Vector3.Distance(neighbour.worldPosition, targetPoint.worldPosition);
+                    neighbour.hCost = GetDistance(neighbour.worldPosition, targetPoint.worldPosition);
                     neighbour.parent = node;
-                    if (!openSet.Contains(neighbour))
+                    if (openSet.Contains(neighbour) == false)
                         openSet.Add(neighbour);
                 }
             }
         }
     }
 
+    float GetDistance(Vector3 pointA, Vector3 pointB)
+    {
+        float distanceX = Mathf.Abs(pointA.x - pointB.x);
+        float distanceZ = Mathf.Abs(pointA.z - pointB.z);
+
+        if (distanceX > distanceZ)
+        {
+            return (14 * distanceZ) + 10 * (distanceX - distanceZ);
+        }
+        else
+        {
+            return (14 * distanceX) + 10 * (distanceZ - distanceX);
+        }
+    }
 }
