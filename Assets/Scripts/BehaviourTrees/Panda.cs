@@ -5,9 +5,9 @@ public class Panda
 {
 
     // Internal parameters, Overwritten in class constructor
-    private float food = 0;
-    private float water = 0;
-    private float temperature = 0;
+    public float food = 0;
+    public float water = 0;
+    public float awakeness = 0;
     private float speed = 0;
     private string id = "";
     private Animator anim;
@@ -28,16 +28,16 @@ public class Panda
     }
 
     // task variable stores the current selected task
-    private Target task = Target.noTask;
+    public Target task = Target.noTask;
 
     // Class constuctor
-    public Panda(string _id, GameObject _panda, float _food, float _water, float _temperature, float _speed, Animator _anim, MovementScript _moveScript)
+    public Panda(string _id, GameObject _panda, float _food, float _water, float _awakeness, float _speed, Animator _anim, MovementScript _moveScript)
     {
         id = _id;
         panda = _panda;
         food = _food;
         water = _water;
-        temperature = _temperature;
+        awakeness = _awakeness;
         speed = _speed;
         anim = _anim;
         moveScript = _moveScript;
@@ -69,9 +69,9 @@ public class Panda
     // Decay of pandas 3 parameters. Called within update
     private void Decay()
     {
-        food -= 2.0f * Time.deltaTime;
-        water -= 2.0f * Time.deltaTime;
-        temperature -= 2.5f * Time.deltaTime;
+        food -= 1.0f * Time.deltaTime;
+        water -= 1.0f * Time.deltaTime;
+        awakeness -= 1.5f * Time.deltaTime;
     }
 
     // Called every frame to update pandas parameters and move panda
@@ -100,7 +100,7 @@ public class Panda
                         // Plays animation
                         anim.Play("Hit");
                         // Eats food
-                        food += 0.08f;
+                        food += 0.24f;
                     }
                     else
                     {
@@ -113,7 +113,7 @@ public class Panda
                     if (water < 99.0f)
                     {
                         anim.Play("Attack");
-                        water += 0.08f;
+                        water += 0.24f;
                     }
                     else
                     {
@@ -122,10 +122,10 @@ public class Panda
                 }
                 else
                 {
-                    if (temperature < 99.0f)
+                    if (awakeness < 99.0f)
                     {
                         anim.Play("Idle2");
-                        temperature += 0.04f;
+                        awakeness += 0.12f;
                     }
                     else
                     {
@@ -138,63 +138,15 @@ public class Panda
 
     // Checks current need of the panda
     // Sets weights for each to prioritise more important tasks
-    public int[] CheckNeed()
+    public virtual int[] CheckNeed()
     {
         // Array for each need
         // Food index 0,  Water index 1, heat index 3
         int[] needs = new int[3];
 
-        // Checks what animal currently needs more
-        if (food >= water && food >= temperature)
+        for (int i = 0; i < needs.Length; i++)
         {
-            if (temperature >= water)
-            {
-                // food > heat > water
-                needs[0] = 1;
-                needs[1] = 10;
-                needs[2] = 5;
-            }
-            else
-            {
-                // food > water > heat
-                needs[0] = 1;
-                needs[1] = 5;
-                needs[2] = 10;
-            }
-        }
-        else if (water >= food && water >= temperature)
-        {
-            if (temperature >= food)
-            {
-                // water > heat > food
-                needs[0] = 10;
-                needs[1] = 1;
-                needs[2] = 5;
-            }
-            else
-            {
-                // water > food > heat
-                needs[0] = 5;
-                needs[1] = 1;
-                needs[2] = 10;
-            }
-        }
-        else
-        {
-            if (water >= food)
-            {
-                // temperature > water > food
-                needs[0] = 10;
-                needs[1] = 5;
-                needs[2] = 1;
-            }
-            else
-            {
-                // temperature > food > water
-                needs[0] = 5;
-                needs[1] = 10;
-                needs[2] = 1;
-            }
+            needs[i] = Random.Range(0, 5);
         }
 
         return needs;

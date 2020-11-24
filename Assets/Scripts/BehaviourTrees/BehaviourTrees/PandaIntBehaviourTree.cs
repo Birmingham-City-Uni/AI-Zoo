@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Profiling;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PandaBehaviourTree : MonoBehaviour
+public class PandaIntBehaviourTree : MonoBehaviour
 {
     // Start Tree node
     Root tree;
@@ -16,13 +17,18 @@ public class PandaBehaviourTree : MonoBehaviour
     public GameObject waterSource;
     public GameObject shelterSource;
 
+    public Text currentTask;
+    public Slider awakeness;
+    public Slider water;
+    public Slider food;
+
     // Panda animator
     private Animator anim;
 
     MovementScript moveScript;
 
     // Panda object
-    Panda panda;
+    PandaIntelligent panda;
 
     // Speed in which panda moves toward sources
     public float pandaSpeed;
@@ -35,7 +41,7 @@ public class PandaBehaviourTree : MonoBehaviour
         moveScript = GetComponent<MovementScript>();
 
         // Create panda with following parameters
-        panda = new Panda("Panda1", this.gameObject, 80, 80, 80, pandaSpeed, anim, moveScript);
+        panda = new PandaIntelligent("Intelligent", this.gameObject, 80, 80, 80, pandaSpeed, anim, moveScript);
 
 #pragma warning disable format
         // Create root node
@@ -63,5 +69,22 @@ public class PandaBehaviourTree : MonoBehaviour
         panda.Update();
         // Calls behaviour tree updater
         tree.Tick();
+
+        awakeness.value = panda.awakeness / 100;
+        water.value = panda.water / 100;
+        food.value = panda.food / 100;
+
+        switch (panda.task)
+        {
+            case Panda.Target.food:
+                currentTask.text = "Eating";
+                break;
+            case Panda.Target.water:
+                currentTask.text = "Drinking";
+                break;
+            case Panda.Target.shelter:
+                currentTask.text = "Sleeping";
+                break;
+        }
     }
 }
