@@ -31,10 +31,8 @@ public class FlockSpawn : MonoBehaviour
     // Starting spawn position of each bird
     private Vector3 birdSpawnPosition;
 
-    // Player object
-    private GameObject player;
-    // Stores players current position
-    private Vector3 playerPosition;
+    // Target object (If this moves, move the flock)
+    private Vector3 targetPositon;
 
     private float timer = 0.0f;
     private float newGoalTimer = 30.0f;
@@ -56,10 +54,8 @@ public class FlockSpawn : MonoBehaviour
         // Select initial goal
         SelectGoal();
 
-        player = GameObject.FindWithTag("Player");
-
         // Get players starting position
-        playerPosition = player.transform.position;
+        targetPositon = this.transform.position;
 
         // Spawn initial bird oids
         SpawnBirds();
@@ -68,7 +64,7 @@ public class FlockSpawn : MonoBehaviour
     private void Update()
     {
         // Update player position to keep gizmos updating
-        playerPosition = player.transform.position;
+        targetPositon = this.transform.position;
 
         // Select new goal after newGoalTimer has elapsed
         if (timer > newGoalTimer)
@@ -97,9 +93,9 @@ public class FlockSpawn : MonoBehaviour
         for (int i = 0; i < flockSize; i++)
         {
             // Choose random position within bounds
-            birdSpawnPosition = new Vector3(Random.Range(playerPosition.x - flockBounds, playerPosition.x + flockBounds),
-                                            Random.Range(playerPosition.y + 10f, playerPosition.y + flockBounds),
-                                            Random.Range(playerPosition.z - flockBounds, playerPosition.z + flockBounds));
+            birdSpawnPosition = new Vector3(Random.Range(targetPositon.x - flockBounds, targetPositon.x + flockBounds),
+                                            Random.Range(targetPositon.y + 10f, targetPositon.y + flockBounds),
+                                            Random.Range(targetPositon.z - flockBounds, targetPositon.z + flockBounds));
             // Create birds at above created position with random rotation
             birdsArray[i] = Instantiate(birdPrefab, birdSpawnPosition, Quaternion.LookRotation(new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f))));
         }
@@ -109,6 +105,6 @@ public class FlockSpawn : MonoBehaviour
     {
         // Display boid bounds in the scene
         Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(new Vector3(playerPosition.x, playerPosition.y + 32.50f, playerPosition.z), new Vector3(flockBounds * 2, 45, flockBounds * 2));
+        Gizmos.DrawWireCube(new Vector3(targetPositon.x, targetPositon.y + 32.50f, targetPositon.z), new Vector3(flockBounds * 2, 45, flockBounds * 2));
     }
 }

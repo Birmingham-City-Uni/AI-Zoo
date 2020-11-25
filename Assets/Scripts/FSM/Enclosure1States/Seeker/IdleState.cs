@@ -17,6 +17,7 @@ public class IdleState : State
 
     public override void Execute()
     {
+
     }
 
     public override void Exit()

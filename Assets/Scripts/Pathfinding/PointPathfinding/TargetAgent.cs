@@ -11,7 +11,7 @@ public class TargetAgent : MonoBehaviour
 
     public float rotationSpeed = 10.0f;
     public float speed = 1.0f;
-    public float distanceAwayFromNode = 0.2f;
+    public float distanceAwayFromNode = 0.3f;
     private int index;
 
     // Start is called before the first frame update
@@ -37,8 +37,10 @@ public class TargetAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If not at target
         if (move.CalculateDistance(this.gameObject, targetPoint.worldPosition) > distanceAwayFromNode)
         {
+            // If not at next node
             if (move.CalculateDistance(this.gameObject, pointPathfinder.finalPointGraph[index].worldPosition) > distanceAwayFromNode)
             {
                 Move();

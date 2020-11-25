@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AgentUninformed : MonoBehaviour
 {
-    // Creates instances of sensor and FSM 
-    public SensorScript sensorScript;
 
     public PointPathfinder pointPathfinder;
     public MovementScript move;

@@ -169,7 +169,6 @@ private GameObject target;
 
     public bool PandaShouldEat()
     {
-        Debug.Log("Check Eat");
         if (selectedTask == Target.food)
         {
             return true;
@@ -178,7 +177,6 @@ private GameObject target;
     }
     public bool PandaShouldDrink()
     {
-        Debug.Log("Check Drink");
         if (selectedTask == Target.water)
         {
             return true;
@@ -187,7 +185,6 @@ private GameObject target;
     }
     public bool PandaShouldSleep()
     {
-        Debug.Log("Check Sleep");
         if (selectedTask == Target.shelter)
         {
             return true;

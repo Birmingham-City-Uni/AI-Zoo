@@ -61,7 +61,6 @@ public class MovementScript : MonoBehaviour
         // Calculate the distance between the objects using pythagoras
 
         float distance = Mathf.Sqrt(((agentPos.transform.position.x - targetPos.x) * (agentPos.transform.position.x - targetPos.x)) + ((agentPos.transform.position.z - targetPos.z) * (agentPos.transform.position.z - targetPos.z)));
-
         return distance;
     }
 }
