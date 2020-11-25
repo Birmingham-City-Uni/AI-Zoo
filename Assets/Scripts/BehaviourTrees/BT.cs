@@ -406,6 +406,8 @@ namespace BTAI
             activeChild = -1;
 
             m_Weight = weight;
+
+            Debug.Log("Check");
         }
 
         public override Branch OpenBranch(params BTNode[] children)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 public class Panda
 {
 
@@ -8,15 +9,15 @@ public class Panda
     public float food = 0;
     public float water = 0;
     public float awakeness = 0;
-    private float speed = 0;
     private string id = "";
     private Animator anim;
     GameObject panda;
+    protected NavMeshAgent agent;
+    protected int[] needs;
+    protected Target selectedTask;
 
-    private GameObject target;
+private GameObject target;
 
-    // Creates a movemoment script object
-    MovementScript moveScript;
 
     // Target contains values for all carried out tasks
     public enum Target
@@ -31,16 +32,17 @@ public class Panda
     public Target task = Target.noTask;
 
     // Class constuctor
-    public Panda(string _id, GameObject _panda, float _food, float _water, float _awakeness, float _speed, Animator _anim, MovementScript _moveScript)
+    public Panda(string _id, GameObject _panda, float _food, float _water, float _awakeness, Animator _anim, NavMeshAgent _agent)
     {
         id = _id;
         panda = _panda;
         food = _food;
         water = _water;
         awakeness = _awakeness;
-        speed = _speed;
         anim = _anim;
-        moveScript = _moveScript;
+        agent = _agent;
+        needs = new int[3];
+
     }
 
     // Sets task with given target position and task type
@@ -56,22 +58,15 @@ public class Panda
         // Plays walk animation
         anim.Play("Walk");
 
-        // Gets angle that the panda needs to turn in order to face the target
-        float angle_to_turn = moveScript.CalculateAngle(panda.gameObject, target.transform.position);
-
-        // Rotates the panda
-        panda.transform.Rotate(0, angle_to_turn * Time.deltaTime * 10.0f, 0);
-
-        // Translate locally forward in z
-        panda.transform.Translate(new Vector3(0, 0, speed * Time.deltaTime), Space.Self);
+        agent.destination = target.transform.position;
     }
 
     // Decay of pandas 3 parameters. Called within update
     private void Decay()
     {
-        food -= 1.0f * Time.deltaTime;
-        water -= 1.0f * Time.deltaTime;
-        awakeness -= 1.5f * Time.deltaTime;
+        food -= 0.75f * Time.deltaTime;
+        water -= 0.75f * Time.deltaTime;
+        awakeness -= 1.0f * Time.deltaTime;
     }
 
     // Called every frame to update pandas parameters and move panda
@@ -83,7 +78,7 @@ public class Panda
         if (task != Target.noTask)
         {
             // Calculates the distance between the target and panda
-            if (moveScript.CalculateDistance(panda.gameObject, target.transform.position) > 0.5f)
+            if (Vector3.Distance(panda.gameObject.transform.position, target.transform.position) > 1.5f)
             {
                 // If panda is not at the target the panda moves towards it
                 Move();
@@ -138,25 +133,74 @@ public class Panda
 
     // Checks current need of the panda
     // Sets weights for each to prioritise more important tasks
-    public virtual int[] CheckNeed()
+    public virtual void GenerateWeights()
     {
         // Array for each need
         // Food index 0,  Water index 1, heat index 3
-        int[] needs = new int[3];
+
+        int totalRange = 0;
 
         for (int i = 0; i < needs.Length; i++)
         {
             needs[i] = Random.Range(0, 5);
+            totalRange += needs[i];
         }
+        SelectTask(totalRange);
+    }
 
-        return needs;
+    protected void SelectTask(int totalRange)
+    {
+        int rand = Random.Range(0, totalRange);
+
+        if (rand < needs[0])
+        {
+            selectedTask = Target.food;
+        }
+        else if (rand < needs[1])
+        {
+            selectedTask = Target.water;
+        }
+        else
+        {
+            selectedTask = Target.shelter;
+        }
+    }
+
+
+    public bool PandaShouldEat()
+    {
+        Debug.Log("Check Eat");
+        if (selectedTask == Target.food)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool PandaShouldDrink()
+    {
+        Debug.Log("Check Drink");
+        if (selectedTask == Target.water)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool PandaShouldSleep()
+    {
+        Debug.Log("Check Sleep");
+        if (selectedTask == Target.shelter)
+        {
+            return true;
+        }
+        return false;
     }
 
     // Called to check if panda has a task or not
-    public bool IsNotBusy()
+    public virtual bool IsNotBusy()
     {
         if (task == Target.noTask)
         {
+            GenerateWeights();
             return true;
         }
         else

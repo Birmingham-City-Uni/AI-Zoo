@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using Unity.Profiling;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class PandaSemiIntBehaviourTree : MonoBehaviour
 {
     // Start Tree node
     Root tree;
+
+    private NavMeshAgent agent;
 
     // Game objects used to specify sourcers
     public GameObject foodSource;
@@ -25,23 +28,17 @@ public class PandaSemiIntBehaviourTree : MonoBehaviour
     // Panda animator
     private Animator anim;
 
-    MovementScript moveScript;
-
     // Panda object
     PandaSemiIntelligent panda;
-
-    // Speed in which panda moves toward sources
-    public float pandaSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        moveScript = GetComponent<MovementScript>();
 
         // Create panda with following parameters
-        panda = new PandaSemiIntelligent("SemiIntellegent", this.gameObject, 80, 80, 80, pandaSpeed, anim, moveScript);
+        panda = new PandaSemiIntelligent("SemiIntellegent", this.gameObject, 80, 80, 80, anim, agent);
 
 #pragma warning disable format
         // Create root node
@@ -50,15 +47,18 @@ public class PandaSemiIntBehaviourTree : MonoBehaviour
         tree.OpenBranch(
             // Checks if panda is currently performing a task
             BT.While(() => panda.IsNotBusy()).OpenBranch(
-                // Uses weighting to decide a task for the panda to procede with based upon the pandas need
-                BT.RandomSequence(panda.CheckNeed()).OpenBranch(
+                BT.Selector(true).OpenBranch(
+                //// Uses weighting to decide a task for the panda to procede with based upon the pandas need
+                BT.If(() => panda.PandaShouldEat()).OpenBranch(
                     // Sets the pandas task giving the source of that task
-                    BT.Call(() => panda.SetTask(foodSource, Panda.Target.food)),
-                    BT.Call(() => panda.SetTask(waterSource, Panda.Target.water)),
-                    BT.Call(() => panda.SetTask(shelterSource, Panda.Target.shelter))
+                    BT.Call(() => panda.SetTask(foodSource, Panda.Target.food))),
+                BT.If(() => panda.PandaShouldDrink()).OpenBranch(
+                    BT.Call(() => panda.SetTask(waterSource, Panda.Target.water))),
+                BT.If(() => panda.PandaShouldSleep()).OpenBranch(
+                    BT.Call(() => panda.SetTask(shelterSource, Panda.Target.shelter)))
                 )
             )
-        );
+        ) ; ; ;
 #pragma warning restore format 
     }
 
