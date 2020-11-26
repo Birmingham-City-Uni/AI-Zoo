@@ -36,12 +36,14 @@ public class PointPathfinder : MonoBehaviour
         {
             nodes[i] = new Point(nodeList.transform.GetChild(i).gameObject.transform.position, i);
         }
+
+        links = new List<Vector3>();
+        from_pos = new List<Vector3>();
     }
 
     void Start()
     {
-        links = new List<Vector3>();
-        from_pos = new List<Vector3>();
+
     }
 
     void Update()
@@ -264,6 +266,9 @@ public class PointPathfinder : MonoBehaviour
         Queue<Point> openSet = new Queue<Point>();
         // Already explored point list
         List<Point> closedSet = new List<Point>();
+
+        links.Clear();
+        from_pos.Clear();
 
         // Get the closest starting and finishing points
         Point startingPoint = GetClosestNode(startingPos);

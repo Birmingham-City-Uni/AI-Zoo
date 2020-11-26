@@ -5,8 +5,8 @@ using UnityEngine;
 public class AgentUninformed : MonoBehaviour
 {
 
-    public PointPathfinder pointPathfinder;
-    public MovementScript move;
+    private PointPathfinder pointPathfinder;
+    private MovementScript move;
     public GameObject target;
 
     public float rotationSpeed = 10.0f;
@@ -18,6 +18,8 @@ public class AgentUninformed : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pointPathfinder = GetComponent<PointPathfinder>();
+        move = GetComponent<MovementScript>();
         pointPathfinder.InitaliseNodes();
         CalculatePath();
     }
@@ -79,12 +81,15 @@ public class AgentUninformed : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (pointPathfinder.finalPointGraph != null)
+        if (Application.isPlaying == true)
         {
-            foreach (Point node in pointPathfinder.finalPointGraph)
+            if (pointPathfinder.finalPointGraph != null)
             {
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawWireSphere(node.worldPosition, 0.5f);
+                foreach (Point node in pointPathfinder.finalPointGraph)
+                {
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawWireSphere(node.worldPosition, 0.5f);
+                }
             }
         }
     }

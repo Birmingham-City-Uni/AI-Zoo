@@ -33,8 +33,8 @@ public class TargetMove : MonoBehaviour
     void ChangeTarget()
     {
         this.transform.position = pointPathfind.nodes[arrayOfTargetIndexs[indexOfIndexs]].worldPosition;
+        this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.11f, this.transform.position.z);
     }
-
     // Update is called once per frame
     void Update()
     {
