@@ -15,8 +15,7 @@ public class Panda
     protected NavMeshAgent agent;
     protected int[] needs;
     protected Target selectedTask;
-
-private GameObject target;
+    private GameObject target;
 
 
     // Target contains values for all carried out tasks

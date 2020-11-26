@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class PandaIntelligent : Panda
 {
 
-    public PandaIntelligent(string _id, GameObject _panda, float _food, float _water, float _awakeness, Animator _anim, NavMeshAgent _agent) 
+    public PandaIntelligent(string _id, GameObject _panda, float _food, float _water, float _awakeness, Animator _anim, NavMeshAgent _agent)
         : base(_id, _panda, _food, _water, _awakeness, _anim, _agent)
     {
 

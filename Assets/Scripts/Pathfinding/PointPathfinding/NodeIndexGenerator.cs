@@ -29,7 +29,7 @@ public class NodeIndexGenerator : MonoBehaviour
         if (identicalNodeList == true)
         {
             arrayOfIndexs = new int[sizeOfNodeLists];
-            for (int i = 0; i< sizeOfNodeLists - 1; i++)
+            for (int i = 0; i < sizeOfNodeLists - 1; i++)
             {
                 arrayOfIndexs[i] = i;
             }
