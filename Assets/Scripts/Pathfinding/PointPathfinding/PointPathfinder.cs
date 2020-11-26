@@ -23,6 +23,9 @@ public class PointPathfinder : MonoBehaviour
     // Cached point that was closest to the target on the last path calculation
     public Point cachedTargetPoint;
 
+    private List<Vector3> links;
+    List<Vector3> from_pos;
+
     // Create nodes from given parent node and store them in the nodes array
     public void InitaliseNodes()
     {
@@ -32,6 +35,22 @@ public class PointPathfinder : MonoBehaviour
         for (int i = 0; i < numElements; i++)
         {
             nodes[i] = new Point(nodeList.transform.GetChild(i).gameObject.transform.position, i);
+        }
+    }
+
+    void Start()
+    {
+        links = new List<Vector3>();
+        from_pos = new List<Vector3>();
+    }
+
+    void Update()
+    {
+        int i = 0;
+        foreach (Vector3 link in links)
+        {
+            Debug.DrawLine(from_pos[i], from_pos[i] + link, Color.red);
+            i++;
         }
     }
 
@@ -78,11 +97,20 @@ public class PointPathfinder : MonoBehaviour
                         }
                     }
 
+                    RaycastHit hitType;
+                    bool hitObject = Physics.Raycast(currentNode.worldPosition, edge, out hitType, distanceThreshold);
+
+
                     // Checks that edge does not go through other objects
-                    if (Physics.Raycast(currentNode.worldPosition, edge, distanceThreshold) == false && walkable == true)
+                    if (walkable == true)
                     {
-                        // Add edge to list as well as the position of the edge start
-                        neighbours.Add(node);
+                        if (hitObject == false || hitType.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
+                        {
+                            // Add edge to list as well as the position of the edge start
+                            neighbours.Add(node);
+                            from_pos.Add(currentNode.worldPosition);
+                            links.Add(edge);
+                        }
                     }
                 }
             }
@@ -153,6 +181,9 @@ public class PointPathfinder : MonoBehaviour
         List<Point> openSet = new List<Point>();
         // Closed set is a set of points that have been explored
         HashSet<Point> closedSet = new HashSet<Point>();
+
+        links.Clear();
+        from_pos.Clear();
 
         // Get closest nodes to the starting and finishing position
         Point startingPoint = GetClosestNode(startingPos);
