@@ -60,4 +60,5 @@ Added new colour system to start to prioritise tasks
 Assets used:
 Fence Assets: 	https://assetstore.unity.com/packages/3d/props/exterior/low-poly-fence-pack-61661
 Animals:      	https://assetstore.unity.com/packages/3d/characters/animals/kubikos-22-animated-cube-mini-animals-100696
+Skybox:         https://assetstore.unity.com/packages/2d/textures-materials/sky/skybox-series-free-103633
 
