@@ -62,3 +62,6 @@ Fence Assets: 	    https://assetstore.unity.com/packages/3d/props/exterior/low-p
 Animals:      	    https://assetstore.unity.com/packages/3d/characters/animals/kubikos-22-animated-cube-mini-animals-100696
 Skybox:             https://assetstore.unity.com/packages/2d/textures-materials/sky/skybox-series-free-103633
 Terrain Materials:  https://assetstore.unity.com/packages/2d/textures-materials/terrain-textures-pack-free-139542
+Chicken Sound:      https://www.fesliyanstudios.com/royalty-free-sound-effects-download/rooster-chicken-259
+Background Music:   https://assetstore.unity.com/packages/audio/music/orchestral/ultimate-game-music-collection-37351
+
