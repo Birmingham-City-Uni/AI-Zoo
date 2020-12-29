@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -132,6 +131,12 @@ public class SensorScript : MonoBehaviour
         return vectorToRotate;
     }
 
+    void Update()
+    {
+        // Calls for sensor scan giving current objects position, rotation and forward facing direction
+        Scan(this.transform.position, this.transform.rotation, this.transform.forward);
+    }
+
     void OnDrawGizmos()
     {
         // Checks whether application is running
@@ -141,8 +146,6 @@ public class SensorScript : MonoBehaviour
             return;
         }
         Gizmos.color = Color.white;
-        // Calls for sensor scan giving current objects position, rotation and forward facing direction
-        Scan(this.transform.position, this.transform.rotation, this.transform.forward);
         // Checks for hit, changes colour to red
         if (Hit)
         {

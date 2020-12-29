@@ -55,6 +55,8 @@ namespace BrokenVector.LowPolyFencePack
         private Animation animator;
         private DoorState currentState;
 
+        private BoxCollider coll;
+
         void Awake()
         {
             animator = GetComponent<Animation>();
@@ -81,6 +83,7 @@ namespace BrokenVector.LowPolyFencePack
             var clip = GetCurrentAnimation();
             animator[clip].speed = 9999;
             animator.Play(clip);
+            coll = GetComponent<BoxCollider>();
         }
 
         /// <summary>
@@ -111,9 +114,15 @@ namespace BrokenVector.LowPolyFencePack
         public void ToggleDoor()
         {
             if (IsDoorOpen)
+            {
                 CloseDoor();
+                coll.isTrigger = false;
+            }
             else
+            {
                 OpenDoor();
+                coll.isTrigger = true;
+            }
         }
 
         private void Animate()

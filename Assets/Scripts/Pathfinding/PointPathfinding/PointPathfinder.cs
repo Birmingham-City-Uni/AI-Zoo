@@ -178,7 +178,6 @@ public class PointPathfinder : MonoBehaviour
     // A* pathfind. Takes start and end position and returns the optimal path to the target
     public void FindPath(Vector3 startingPos, Vector3 finishPos)
     {
-        Debug.Log("Finding Path");
         // openSet is a list of points to currently explore
         List<Point> openSet = new List<Point>();
         // Closed set is a set of points that have been explored
@@ -190,7 +189,6 @@ public class PointPathfinder : MonoBehaviour
         // Get closest nodes to the starting and finishing position
         Point startingPoint = GetClosestNode(startingPos);
         Point targetPoint = GetClosestNode(finishPos);
-        Debug.Log("Target point location: " + targetPoint.worldPosition);
         // Cache the target position which will be used externally to test for a moving target
         cachedTargetPoint = targetPoint;
 
@@ -223,7 +221,6 @@ public class PointPathfinder : MonoBehaviour
             // Evaluates true when the node is the target point
             if (node.id == targetPoint.id)
             {
-                Debug.Log("Retrace Paths");
                 // Retrace through the parents of each node from target to start giving a final path to follow
                 RetracePath(startingPoint, targetPoint);
                 return;

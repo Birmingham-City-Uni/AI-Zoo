@@ -9,10 +9,13 @@ public class PlayerMove : MonoBehaviour
 
     private bool canMove;
 
+    private Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
         canMove = true;
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Move()
@@ -38,6 +41,8 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rb.velocity = Vector3.zero;
+
         if (canMove == true)
         {
             Move();
