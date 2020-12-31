@@ -5,7 +5,7 @@ using UnityEngine;
 // Base class for State
 public abstract class State
 {
- 
+	
     protected AgentAStar agent;
     protected FSMStateManager sm;
     protected Animator anim;

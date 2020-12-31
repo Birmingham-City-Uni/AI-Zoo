@@ -94,7 +94,7 @@ public class BunnySteering : MonoBehaviour
             // Rotates bunny towards the direction away from the player
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 2.0f * Time.deltaTime);
             // creates a new vector at a quicker speed than normal
-            Vector3 moveVector = direction.normalized * (speed*4)  * Time.deltaTime;
+            Vector3 moveVector = direction.normalized * (speed * 4) * Time.deltaTime;
             // Sets new position
             transform.position += new Vector3(moveVector.x, 0, moveVector.z);
         }
