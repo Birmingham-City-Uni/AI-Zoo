@@ -18,7 +18,7 @@ public class Panda
     private GameObject target;
 
 
-    // Target contains values for all carried out tasks
+    // Target contains values for all tasks
     public enum Target
     {
         noTask,
@@ -27,7 +27,7 @@ public class Panda
         shelter
     }
 
-    // task variable stores the current selected task
+    // Task variable stores the current selected task
     public Target task = Target.noTask;
 
     // Class constuctor
@@ -40,6 +40,7 @@ public class Panda
         awakeness = _awakeness;
         anim = _anim;
         agent = _agent;
+        // Initialises needs array
         needs = new int[3];
 
     }
@@ -57,6 +58,7 @@ public class Panda
         // Plays walk animation
         anim.Play("Walk");
 
+        // Sets nav mesh destination
         agent.destination = target.transform.position;
     }
 
@@ -88,7 +90,7 @@ public class Panda
                 // Task is food
                 if (task == Target.food)
                 {
-                    // Eats food until above 99
+                    // Eats food until full
                     if (food < 99.0f)
                     {
                         // Plays animation
@@ -130,8 +132,9 @@ public class Panda
         }
     }
 
-    // Checks current need of the panda
-    // Sets weights for each to prioritise more important tasks
+    // Checks current needs of the panda
+    // Sets weights for each need to prioritise more important tasks
+    // Initial implementation returns completely random weights
     public virtual void GenerateWeights()
     {
         // Array for each need
@@ -147,10 +150,12 @@ public class Panda
         SelectTask(totalRange);
     }
 
+    // Selects tasks with the input parameter of weights array n1 + n2 + n3
     protected void SelectTask(int totalRange)
     {
         int rand = Random.Range(0, totalRange);
 
+        // Selects tasks from needs array 
         if (rand < needs[0])
         {
             selectedTask = Target.food;
@@ -165,7 +170,7 @@ public class Panda
         }
     }
 
-
+    // Called by behaviour tree to check which task should be carried out next
     public bool PandaShouldEat()
     {
         if (selectedTask == Target.food)

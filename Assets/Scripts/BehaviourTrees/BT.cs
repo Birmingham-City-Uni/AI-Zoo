@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// This code is taken from Unitys 2D Tutorial
+// This code has not been edited.
+// See panda class / derived classes for additional implementation made on top of this implementation below
 namespace BTAI
 {
     public enum BTState

@@ -20,6 +20,7 @@ public class PandaIntBehaviourTree : MonoBehaviour
     public GameObject waterSource;
     public GameObject shelterSource;
 
+    // UI elements used for floating GUI
     public Text currentTask;
     public Slider awakeness;
     public Slider water;
@@ -40,6 +41,7 @@ public class PandaIntBehaviourTree : MonoBehaviour
         // Create panda with following parameters
         panda = new PandaIntelligent("Intelligent", this.gameObject, 80, 80, 80, anim, agent);
 
+        // Used to stop the linter giving whitespace errors
 #pragma warning disable format
         // Create root node
         tree = BT.Root();
@@ -48,7 +50,7 @@ public class PandaIntBehaviourTree : MonoBehaviour
             // Checks if panda is currently performing a task
             BT.While(() => panda.IsNotBusy()).OpenBranch(
                 BT.Selector(true).OpenBranch(
-                //// Uses weighting to decide a task for the panda to procede with based upon the pandas need
+                // Uses weighting to decide a task for the panda to procede with based upon the pandas need
                 BT.If(() => panda.PandaShouldEat()).OpenBranch(
                     // Sets the pandas task giving the source of that task
                     BT.Call(() => panda.SetTask(foodSource, Panda.Target.food))),

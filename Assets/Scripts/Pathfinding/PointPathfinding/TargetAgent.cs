@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Target agent can be given to an agent to make it pathfind randomly around a point graph
+
 public class TargetAgent : MonoBehaviour
 {
 

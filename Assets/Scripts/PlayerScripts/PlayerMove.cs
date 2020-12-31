@@ -20,6 +20,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Move()
     {
+        // Checks for player input
+        // Moves player in the desired direction
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime, Space.Self);
@@ -41,6 +43,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Makes sure that interaction between objects does not give the player "drift"
         rb.velocity = Vector3.zero;
 
         if (canMove == true)

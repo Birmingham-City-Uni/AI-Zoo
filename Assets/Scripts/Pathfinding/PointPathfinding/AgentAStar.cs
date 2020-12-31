@@ -26,10 +26,11 @@ public class AgentAStar : MonoBehaviour
     void Start()
     {
         // Sets state to seek
+        Animator anim = GetComponent<Animator>();
         stateManager = new FSMStateManager();
-        idleState = new IdleState(this, stateManager);
-        seekState = new SeekState(this, stateManager);
-        calculatePathState = new CalculatePathState(this, stateManager);
+        idleState = new IdleState(this, stateManager, anim);
+        seekState = new SeekState(this, stateManager, anim);
+        calculatePathState = new CalculatePathState(this, stateManager, anim);
         pointPathfinder = GetComponent<PointPathfinder>();
         moveScript = GetComponent<MovementScript>();
         pointPathfinder.InitaliseNodes();
@@ -69,8 +70,6 @@ public class AgentAStar : MonoBehaviour
     public void CalculatePath()
     {
         pointPathfinder.FindPath(this.transform.position, target.transform.position);
-        Debug.Log("Calculating new path");
-        Debug.Log("Target Positon" + target.transform.position);
         currentIndex = 0;
     }
 
@@ -97,14 +96,14 @@ public class AgentAStar : MonoBehaviour
 
         if (stateManager.GetCurrentState().GetType() == typeof(IdleState))
         {
-            stateManager.PopState();
+            //stateManager.PopState();
             stateManager.PushState(calculatePathState);
         }
 
         if (stateManager.GetCurrentState().GetType() == typeof(SeekState) && (bool)IsTargetNotAtCachedPosition() == true)
         {
             stateManager.PopState();
-            stateManager.PushState(idleState);
+            //stateManager.PushState(idleState);
         }
     }
 

@@ -6,7 +6,7 @@ public class CalculatePathState : State
 {
 
     // class initialiser sets owner and sensor to given objects
-    public CalculatePathState(AgentAStar agent, FSMStateManager sm) : base(agent, sm)
+    public CalculatePathState(AgentAStar agent, FSMStateManager sm, Animator anim) : base(agent, sm, anim)
     {
 
     }
@@ -17,6 +17,7 @@ public class CalculatePathState : State
 
     public override void Execute()
     {
+        // Calls the calculation method in the AgentAStar class
         agent.CalculatePath();
     }
 

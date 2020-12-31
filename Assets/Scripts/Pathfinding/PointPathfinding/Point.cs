@@ -10,7 +10,9 @@ public class Point
     public float gCost;
     // Estimated cost to reach target from this point
     public float hCost;
+    // Parent node to this one. (Tree structure)
     public Point parent;
+    // An unique identifier to the point
     public int id;
 
     public Point(Vector3 _worldPos, int _id)
@@ -19,7 +21,7 @@ public class Point
         id = _id;
     }
 
-    // Total estimated cost of path through this point
+    // Total estimated cost of path through to this point
     public float fCost
     {
         get

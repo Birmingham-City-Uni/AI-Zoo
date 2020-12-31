@@ -23,6 +23,7 @@ public class PlayerTurn : MonoBehaviour
 
     private void Look()
     {
+        // Allows player to turn the character using the mouse
         turnRate = Input.GetAxis("Mouse X") * turnRateSpeed;
         lookRate = Input.GetAxis("Mouse Y") * lookRateSpeed;
 

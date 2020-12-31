@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
 
+// This code is orginally derived from Sebastian Lague's implementation of a grid based A* Pathfind
+// https://www.youtube.com/watch?v=mZfyt03LDH4
+// This implementation has been adapted to now calcualte A* pathfinding in a node based system
+// There is also the additional implementation of Breath First Search
+
 public class PointPathfinder : MonoBehaviour
 {
     // Legal distance between each point
@@ -17,38 +22,38 @@ public class PointPathfinder : MonoBehaviour
     public GameObject nodeList;
     public Point[] nodes;
 
-    // List of points the agent needs to follow to get to its goal
+    // Final list of points the agent needs to follow to get to its goal
     public List<Point> finalPointGraph;
 
     // Cached point that was closest to the target on the last path calculation
     public Point cachedTargetPoint;
 
+    // Debug Gizmos data structures
     private List<Vector3> links;
     List<Vector3> from_pos;
 
     // Create nodes from given parent node and store them in the nodes array
     public void InitaliseNodes()
     {
+        // Gets number of children and initialises a node array
         int numElements = nodeList.transform.childCount;
         nodes = new Point[numElements];
 
+        // Fills node array giving uniquie id and world position to each node
         for (int i = 0; i < numElements; i++)
         {
             nodes[i] = new Point(nodeList.transform.GetChild(i).gameObject.transform.position, i);
         }
 
+        // Initialises the debug arrays
         links = new List<Vector3>();
         from_pos = new List<Vector3>();
-    }
-
-    void Start()
-    {
-
     }
 
     void Update()
     {
         int i = 0;
+        // Draws links between nodes
         foreach (Vector3 link in links)
         {
             Debug.DrawLine(from_pos[i], from_pos[i] + link, Color.red);
@@ -61,7 +66,7 @@ public class PointPathfinder : MonoBehaviour
     {
         List<Point> neighbours = new List<Point>();
 
-        // Check each node again each other node
+        // Check each node against each other node
         foreach (Point node in nodes)
         {
             // Check if nodes are different
@@ -100,12 +105,14 @@ public class PointPathfinder : MonoBehaviour
                     }
 
                     RaycastHit hitType;
+                    // Checks for blocking object
                     bool hitObject = Physics.Raycast(currentNode.worldPosition, edge, out hitType, distanceThreshold);
 
 
                     // Checks that edge does not go through other objects
                     if (walkable == true)
                     {
+                        // Checks that the path is not blocked 
                         if (hitObject == false || hitType.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
                         {
                             // Add edge to list as well as the position of the edge start
@@ -183,12 +190,14 @@ public class PointPathfinder : MonoBehaviour
         // Closed set is a set of points that have been explored
         HashSet<Point> closedSet = new HashSet<Point>();
 
+        // Clear debug arrays for this pathfind
         links.Clear();
         from_pos.Clear();
 
         // Get closest nodes to the starting and finishing position
         Point startingPoint = GetClosestNode(startingPos);
         Point targetPoint = GetClosestNode(finishPos);
+
         // Cache the target position which will be used externally to test for a moving target
         cachedTargetPoint = targetPoint;
 
@@ -207,7 +216,7 @@ public class PointPathfinder : MonoBehaviour
                 // Checks if this point has a lower total estimated cost than the current node
                 if (openSet[i].fCost <= node.fCost)
                 {
-                    // Checjs if this point has a lower estimated cost to the goal
+                    // Checks if this point has a lower estimated cost to the goal
                     if (openSet[i].hCost < node.hCost)
                         // Sets the node equal to the lower costing node in both estimated and total cost
                         node = openSet[i];
@@ -226,13 +235,12 @@ public class PointPathfinder : MonoBehaviour
                 return;
             }
 
-            // Looks through each point that is a neightbour to the node
+            // Looks through each point that is a neightbour to this node
             foreach (Point neighbour in GetNeighbourNodes(node))
             {
                 // Checks if closed set already has the neighbour point
                 if (closedSet.Contains(neighbour))
                 {
-                    // If so goes to next neighbour in for each
                     continue;
                 }
                 // Works out the cost to get to this neighbour node, using the gCost (cost of getting to the node prior to this) + the distance between the current node and the neighbour node
@@ -299,7 +307,6 @@ public class PointPathfinder : MonoBehaviour
                 // Check if the explored point list already contains this point
                 if (closedSet.Contains(neighbour))
                 {
-                    // If so, go to the next element in the foreach
                     continue;
                 }
                 // If the currently explored set does not contain this neighbour
@@ -313,21 +320,4 @@ public class PointPathfinder : MonoBehaviour
             }
         }
     }
-
-    //float GetDistance(Vector3 pointA, Vector3 pointB)
-    //{
-    //    // Get distance between points (Not taking into account the y, because height does not impact the time to get to the next node
-    //    float distanceX = Mathf.Abs(pointA.x - pointB.x);
-    //    float distanceZ = Mathf.Abs(pointA.z - pointB.z);
-
-    //    // Check which distance is greater
-    //    if (distanceX > distanceZ)
-    //    {
-    //        return (14 * distanceZ) + 10 * (distanceX - distanceZ);
-    //    }
-    //    else
-    //    {
-    //        return (14 * distanceX) + 10 * (distanceZ - distanceX);
-    //    }
-    //}
 }

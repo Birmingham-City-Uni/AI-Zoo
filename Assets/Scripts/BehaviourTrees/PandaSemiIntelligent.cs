@@ -11,6 +11,7 @@ public class PandaSemiIntelligent : Panda
 
     }
 
+    // Overidden function that generates weights in a non deterministic approach still favouring more necessairy tasks
     public override void GenerateWeights()
     {
         // Array for each need
