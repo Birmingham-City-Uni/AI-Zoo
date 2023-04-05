@@ -1,4 +1,4 @@
-# milestones-MattLWatts
+# AI Zoo
 milestones-MattLWatts created by GitHub Classroom
 
 This project is for CMP6206 Artificial Intelligence for Games
